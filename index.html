@@ -1,96 +1,310 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Agent</title>
+    <title>Wanderlust - Travel Agent</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link rel="stylesheet" href="style.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#dad9de",
+                        "tertiary-fixed": "#ebe2c8",
+                        "tertiary-fixed-dim": "#cec6ad",
+                        "error": "#ba1a1a",
+                        "outline": "#737780",
+                        "secondary-fixed-dim": "#ffb68d",
+                        "primary-fixed": "#d5e3ff",
+                        "outline-variant": "#c3c6d1",
+                        "primary": "#001e40",
+                        "on-primary-container": "#799dd6",
+                        "tertiary": "#221e0d",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#672c00",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#003366",
+                        "on-secondary-fixed-variant": "#763300",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f1f0f5",
+                        "surface-container-highest": "#e2e2e7",
+                        "surface-tint": "#3a5f94",
+                        "on-primary": "#ffffff",
+                        "secondary": "#9b4500",
+                        "primary-fixed-dim": "#a7c8ff",
+                        "tertiary-container": "#383321",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#331200",
+                        "inverse-surface": "#2f3034",
+                        "on-surface": "#1a1c1f",
+                        "inverse-primary": "#a7c8ff",
+                        "secondary-container": "#fc8a40",
+                        "on-primary-fixed": "#001b3c",
+                        "surface-variant": "#e2e2e7",
+                        "on-tertiary-fixed-variant": "#4c4733",
+                        "surface": "#f9f9fe",
+                        "on-tertiary-fixed": "#1f1c0b",
+                        "on-primary-fixed-variant": "#1f477b",
+                        "secondary-fixed": "#ffdbc9",
+                        "surface-container-high": "#e8e8ed",
+                        "on-tertiary-container": "#a29b83",
+                        "surface-container": "#eeedf2",
+                        "surface-bright": "#f9f9fe",
+                        "background": "#f9f9fe",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#43474f",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f4f3f8",
+                        "on-background": "#1a1c1f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "margin-desktop": "64px",
+                        "section-gap": "80px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Playfair Display"],
+                        "headline-md": ["Playfair Display"],
+                        "label-sm": ["Montserrat"],
+                        "body-md": ["Montserrat"],
+                        "label-md": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "headline-lg": ["Playfair Display"],
+                        "display-lg-mobile": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["56px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "display-lg-mobile": ["40px", {"lineHeight": "1.1", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+        background: linear-gradient(135deg, #fff9c4 0%, #ffcc80 50%, #ffab91 100%);
+        background-attachment: fixed;
+    }
+</style>
 </head>
-<body>
-    <div class="container">
-        <h1>Your Next Adventure Awaits</h1>
-        <p>Fill out the form below to help us craft your perfect getaway.</p>
-        <form id="travel-form">
-            <div class="form-section">
-                <h2>Budget</h2>
-                <div class="slider-container">
-                    <span>On a Budget</span>
-                    <input type="range" min="0" max="1" value="0.5" step="0.1" class="slider" id="budget">
-                    <span>Travel in Comfort</span>
+<body class="text-on-background font-body-md min-h-screen pb-24 selection:bg-secondary-fixed/30">
+
+    <!-- TopAppBar -->
+    <header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-container-highest/80 backdrop-blur-xl shadow-[0px_10px_30px_rgba(0,51,102,0.08)]">
+        <div class="flex items-center justify-between px-margin-mobile md:px-margin-desktop py-unit">
+            <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-primary dark:text-primary-fixed cursor-pointer" data-icon="menu">menu</span>
+                <h1 class="font-display-lg text-display-lg-mobile tracking-tight text-primary dark:text-primary-fixed">Wanderlust</h1>
+            </div>
+            <div class="flex items-center gap-6">
+                <nav class="hidden md:flex gap-8">
+                    <a class="text-primary dark:text-primary-fixed font-semibold" href="#">Home</a>
+                    <a class="text-outline dark:text-outline-variant hover:opacity-80 transition-opacity" href="#">Search</a>
+                    <a class="text-outline dark:text-outline-variant hover:opacity-80 transition-opacity" href="#">Trips</a>
+                </nav>
+                <div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border-2 border-primary-fixed">
+                    <img alt="User profile photo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO6XGQy4ZwSSkhVY2Czd7h2OtEkFaMtzCH-3ggjAFPUKWM0tkC8Atic7LVh1r8QmZqrQdX5xZP84JEAlTLAfXEklCH6nxbNZKa2gYR69s-BvpDA7fA4Qjj-2ISEGt53PlB7Oy37WBNGMfKTYNBa3PXWb4O49GblTx7KebjEFym5yFOk1G1SVQDTa1qtVjpOZJtoIcAdZwDbkTbr3A451O0uAXXNcbcTvr7dPwM5xO6RB0pMDi-pmjeTz8bqJ64p7d3n99MB5fFRIc"/>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-24 md:pt-32">
+        <section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+            <div class="mb-12 text-center">
+                <h2 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-4">Your Next Adventure Awaits</h2>
+                <p class="font-body-lg text-on-surface-variant max-w-2xl mx-auto">Fill out the form below to help us craft your perfect getaway with exclusive, curated experiences.</p>
+            </div>
+
+            <form id="travel-form" class="space-y-gutter max-w-4xl mx-auto">
+                <!-- Budget Section -->
+                <div class="glass-card rounded-2xl p-gutter shadow-[0px_10px_30px_rgba(0,51,102,0.05)] border border-outline-variant/20">
+                    <h3 class="font-headline-md text-primary flex items-center gap-2 mb-6">
+                        <span class="material-symbols-outlined text-secondary">payments</span> Budget Expectation
+                    </h3>
+                    <div class="flex items-center gap-4">
+                        <span class="font-label-md text-on-surface-variant w-32">On a Budget</span>
+                        <input type="range" min="0" max="1" value="0.5" step="0.1" class="w-full" id="budget">
+                        <span class="font-label-md text-on-surface-variant w-32 text-right">Luxury</span>
+                    </div>
+                </div>
+
+                <!-- Intention Section -->
+                <div class="glass-card rounded-2xl p-gutter shadow-[0px_10px_30px_rgba(0,51,102,0.05)] border border-outline-variant/20">
+                    <h3 class="font-headline-md text-primary flex items-center gap-2 mb-6">
+                        <span class="material-symbols-outlined text-secondary">explore</span> Intention
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <label class="flex items-center p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/30 cursor-pointer hover:border-primary transition-colors">
+                            <input type="radio" name="intention" value="business" class="form-radio text-primary focus:ring-primary border-outline-variant mr-3">
+                            <span class="font-body-md text-on-surface">Business</span>
+                        </label>
+                        <label class="flex items-center p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/30 cursor-pointer hover:border-primary transition-colors">
+                            <input type="radio" name="intention" value="leisure" checked class="form-radio text-primary focus:ring-primary border-outline-variant mr-3">
+                            <span class="font-body-md text-on-surface">Leisure</span>
+                        </label>
+                        <label class="flex items-center p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/30 cursor-pointer hover:border-primary transition-colors">
+                            <input type="radio" name="intention" value="both" class="form-radio text-primary focus:ring-primary border-outline-variant mr-3">
+                            <span class="font-body-md text-on-surface">Both</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Travel Details Section -->
+                <div class="glass-card rounded-2xl p-gutter shadow-[0px_10px_30px_rgba(0,51,102,0.05)] border border-outline-variant/20">
+                    <h3 class="font-headline-md text-primary flex items-center gap-2 mb-6">
+                        <span class="material-symbols-outlined text-secondary">flight_takeoff</span> Travel Details
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mb-6">
+                        <div class="space-y-2">
+                            <label for="duration" class="block font-label-md text-on-surface">Estimated Days</label>
+                            <input type="text" id="duration" placeholder="e.g., '2 weeks' or '10 days'" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-xl px-4 py-3 font-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="from" class="block font-label-md text-on-surface">Travelling From</label>
+                            <input type="text" id="from" value="Singapore" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-xl px-4 py-3 font-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-6">
+                        <div class="space-y-2">
+                            <label for="adults" class="block font-label-md text-on-surface">Adults</label>
+                            <input type="number" id="adults" min="0" value="2" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-xl px-4 py-3 font-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="children" class="block font-label-md text-on-surface">Children</label>
+                            <input type="number" id="children" min="0" value="0" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-xl px-4 py-3 font-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="elderly" class="block font-label-md text-on-surface">Elderly</label>
+                            <input type="number" id="elderly" min="0" value="0" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-xl px-4 py-3 font-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="special-needs" class="block font-label-md text-on-surface">Special Needs</label>
+                        <textarea id="special-needs" rows="2" placeholder="e.g., wheelchair accessibility, dietary restrictions" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-xl px-4 py-3 font-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"></textarea>
+                    </div>
+                </div>
+
+                <!-- Preferences Section -->
+                <div class="glass-card rounded-2xl p-gutter shadow-[0px_10px_30px_rgba(0,51,102,0.05)] border border-outline-variant/20">
+                    <h3 class="font-headline-md text-primary flex items-center gap-2 mb-6">
+                        <span class="material-symbols-outlined text-secondary">favorite</span> Preferences
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div class="space-y-2">
+                            <label for="lodging" class="block font-label-md text-on-surface">Lodging Preferred</label>
+                            <input type="text" id="lodging" placeholder="e.g., Luxury Resort, Boutique Hotel, Villa" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-xl px-4 py-3 font-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="poi" class="block font-label-md text-on-surface">Must-Go Places of Interest</label>
+                            <textarea id="poi" rows="3" placeholder="List destinations you don't want to miss..." class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-xl px-4 py-3 font-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"></textarea>
+                        </div>
+                        <div class="space-y-2">
+                            <label for="other" class="block font-label-md text-on-surface">Other Requirements</label>
+                            <textarea id="other" rows="3" placeholder="Anything else we should know to make it perfect?" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-xl px-4 py-3 font-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-6">
+                    <button type="submit" class="w-full md:w-auto md:min-w-[300px] mx-auto flex items-center justify-center gap-2 bg-primary text-on-primary px-8 py-4 rounded-xl font-label-md hover:bg-primary-container hover:shadow-lg transition-all active:scale-95 text-lg">
+                        <span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+                        Craft My Itinerary
+                    </button>
+                </div>
+            </form>
+
+            <!-- Itinerary Container (Initially Hidden) -->
+            <div id="itinerary-container" class="mt-20 hidden">
+                <hr class="border-outline-variant/30 mb-12">
+                <div id="itinerary-content" class="max-w-5xl mx-auto">
+                    <!-- Dynamic content will be injected here -->
                 </div>
             </div>
 
-            <div class="form-section">
-                <h2>Intention</h2>
-                <div class="radio-group">
-                    <label><input type="radio" name="intention" value="business"> Business</label>
-                    <label><input type="radio" name="intention" value="leisure"> Leisure</label>
-                    <label><input type="radio" name="intention" value="both"> Both</label>
-                </div>
+            <!-- Disqus Section -->
+            <div class="mt-section-gap max-w-4xl mx-auto border-t border-outline-variant/30 pt-12">
+                <h3 class="font-headline-md text-primary mb-8 text-center">Community Discussion</h3>
+                <div id="disqus_thread"></div>
+                <script>
+                    /**
+                    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+                    /*
+                    var disqus_config = function () {
+                    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                    };
+                    */
+                    (function() { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://pendulum-3.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
             </div>
+        </section>
+    </main>
 
-            <div class="form-section">
-                <h2>Travel Details</h2>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="duration">Estimated Number of Days</label>
-                        <input type="text" id="duration" placeholder="e.g., '2 weeks' or '10-13 days'">
-                    </div>
-                    <div class="form-group">
-                        <label for="adults">Number of Adults</label>
-                        <input type="number" id="adults" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label for="children">Number of Children</label>
-                        <input type="number" id="children" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label for="elderly">Number of Elderly</label>
-                        <input type="number" id="elderly" min="0">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="special-needs">Special Needs</label>
-                    <textarea id="special-needs" rows="3" placeholder="e.g., wheelchair accessibility, dietary restrictions"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="from">Travelling From</label>
-                    <input type="text" id="from" value="Singapore">
-                </div>
-            </div>
-
-            <div class="form-section">
-                <h2>Preferences</h2>
-                <div class="form-group">
-                    <label for="lodging">Type of Lodging Preferred</label>
-                    <input type="text" id="lodging" placeholder="e.g., Hotel, Airbnb, Resort">
-                </div>
-                <div class="form-group">
-                    <label for="poi">Must-Go Places of Interest</label>
-                    <textarea id="poi" rows="5" placeholder="List any destinations you don't want to miss!"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="other">Other Requirements</label>
-                    <textarea id="other" rows="5" placeholder="Anything else we should know?"></textarea>
-                </div>
-            </div>
-
-            <button type="submit">Generate Itinerary</button>
-        </form>
-
-        <div id="itinerary-container" class="itinerary-container" style="display: none;">
-            <hr class="section-divider">
-            <h2 class="itinerary-title">Your Custom Itinerary</h2>
-            <div id="itinerary-content"></div>
+    <!-- Floating Action Button (for changes/chat) -->
+    <div class="fixed bottom-24 right-6 z-40 group">
+        <button class="w-14 h-14 bg-secondary text-white rounded-full shadow-xl flex items-center justify-center hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined">chat</span>
+        </button>
+        <!-- Chat Popover -->
+        <div class="absolute bottom-16 right-0 mb-4 w-[300px] bg-surface rounded-2xl shadow-2xl border border-outline-variant/20 p-4 opacity-0 scale-95 pointer-events-none group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto transition-all duration-300 origin-bottom-right">
+            <h4 class="font-headline-md text-primary mb-2 text-[18px]">Request Changes</h4>
+            <p class="font-label-sm text-on-surface-variant mb-4">Want to adjust something?</p>
+            <textarea id="change-request" rows="4" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-xl px-3 py-2 font-body-md text-sm text-on-surface focus:outline-none focus:border-primary mb-3" placeholder="e.g., 'Switch flight to evening'"></textarea>
+            <button type="submit" form="travel-form" class="w-full bg-primary text-white py-2 rounded-lg font-label-md text-sm hover:bg-primary-container transition-colors">Update Itinerary</button>
         </div>
     </div>
 
-    <div class="floating-box">
-        <h3>Request Changes</h3>
-        <p>See something you want to change? Let us know here.</p>
-        <textarea id="change-request" rows="10" placeholder="e.g., 'Can we switch the flight to a later time?'"></textarea>
-        <button type="submit" form="travel-form">Submit Changes</button>
-    </div>
+    <!-- BottomNavBar -->
+    <nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface/80 dark:bg-surface-container/80 backdrop-blur-2xl border-t border-outline-variant/20 shadow-[0px_-10px_30px_rgba(0,51,102,0.05)]">
+        <div class="flex justify-around items-center w-full h-20 pb-safe px-unit">
+            <a href="#" class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim bg-secondary-fixed/20 rounded-full px-4 py-1 active:scale-95 transition-all duration-200">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+                <span class="font-label-sm mt-1">Home</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+                <span class="material-symbols-outlined">search</span>
+                <span class="font-label-sm mt-1">Search</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+                <span class="material-symbols-outlined">travel_explore</span>
+                <span class="font-label-sm mt-1">Trips</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+                <span class="material-symbols-outlined">person</span>
+                <span class="font-label-sm mt-1">Profile</span>
+            </a>
+        </div>
+    </nav>
 
     <script src="main.js"></script>
 </body>
