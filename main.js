@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const elderly = document.getElementById('elderly').value;
         const specialNeeds = document.getElementById('special-needs').value;
         const from = document.getElementById('from').value;
+        const to = document.getElementById('to').value || 'Anywhere';
         const lodging = document.getElementById('lodging').value;
         const poi = document.getElementById('poi').value;
         const other = document.getElementById('other').value;
@@ -29,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             specialNeeds,
             from,
+            to,
             lodging,
             poi,
             other,
@@ -64,7 +66,24 @@ document.addEventListener('DOMContentLoaded', () => {
         let html = `
             <div class="mb-12">
                 <h2 class="font-display-lg text-[40px] text-primary mb-2">Your Proposed Itinerary</h2>
-                <p class="font-body-lg text-on-surface-variant">${days} Days of ${budgetLevel} ${tripType} Travel from ${data.from}</p>
+                <p class="font-body-lg text-on-surface-variant mb-6">${days} Days of ${budgetLevel} ${tripType} Travel from ${data.from} to ${data.to}</p>
+                
+                <!-- Map Overview -->
+                <div class="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-[0px_10px_30px_rgba(0,51,102,0.08)] border border-outline-variant/20 group">
+                    <img alt="Interactive Route Map" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent flex flex-col justify-end p-6 md:p-8">
+                        <div class="flex items-center gap-3 text-white mb-2">
+                            <div class="w-10 h-10 rounded-full bg-secondary-fixed text-secondary flex items-center justify-center shadow-lg">
+                                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">map</span>
+                            </div>
+                            <h3 class="font-headline-md text-2xl drop-shadow-md">Route Overview to ${data.to}</h3>
+                        </div>
+                        <p class="font-body-md text-white/90 drop-shadow-sm flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[18px]">share_location</span> 
+                            Exploring ${data.poi ? data.poi.split(',').length : 'multiple'} key destinations
+                        </p>
+                    </div>
+                </div>
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
